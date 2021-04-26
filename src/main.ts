@@ -111,7 +111,12 @@ async function cancelDuplicates(
 
     if (
       'completed' === element.status.toString() ||
-      !['push', 'pull_request'].includes(element.event.toString())
+      ![
+        'push',
+        'pull_request',
+        'workflow_dispatch',
+        'repository_dispatch'
+      ].includes(element.event.toString())
     ) {
       continue
     }
@@ -139,6 +144,7 @@ async function run(): Promise<void> {
     const selfRunId = getRequiredEnv('GITHUB_RUN_ID')
     const repository = getRequiredEnv('GITHUB_REPOSITORY')
     const eventName = getRequiredEnv('GITHUB_EVENT_NAME')
+    core.info(`eventName: ${eventName}`)
 
     const job = core.getInput('job')
     core.info(`job: ${job}`)

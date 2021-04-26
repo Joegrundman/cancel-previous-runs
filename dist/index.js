@@ -2101,7 +2101,7 @@ function cancelDuplicates(token, selfRunId, owner, repo, workflowId, branch, eve
                 core.info(`Matched ${selfRunId}`);
             }
             if ('completed' === element.status.toString() ||
-                !['push', 'pull_request'].includes(element.event.toString())) {
+                !['push', 'pull_request', 'workflow_dispatch', 'repository_dispatch'].includes(element.event.toString())) {
                 continue;
             }
             // This is a set of one in the non-schedule case, otherwise everything is a candidate
@@ -2124,6 +2124,7 @@ function run() {
             const selfRunId = getRequiredEnv('GITHUB_RUN_ID');
             const repository = getRequiredEnv('GITHUB_REPOSITORY');
             const eventName = getRequiredEnv('GITHUB_EVENT_NAME');
+            core.info(`eventName: ${eventName}`);
             const job = core.getInput('job');
             core.info(`job: ${job}`);
             const [owner, repo] = repository.split('/');
