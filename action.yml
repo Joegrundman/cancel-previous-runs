@@ -8,9 +8,6 @@ inputs:
   workflow:
     description: The filename of the workflow to limit runs on (only applies to schedule events)
     required: false
-  events:
-    description: list of events that will also allow cancelling of builds (e.g. workflow_dispatch)
-    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

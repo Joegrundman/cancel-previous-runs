@@ -2135,7 +2135,12 @@ function run() {
                 yield cancelDuplicates(token, selfRunId, owner, repo, workflowId);
                 return;
             }
-            if (!['push', 'pull_request', 'workflow_dispatch', 'repository_dispatch'].includes(eventName)) {
+            if (![
+                'push',
+                'pull_request',
+                'workflow_dispatch',
+                'repository_dispatch'
+            ].includes(eventName)) {
                 core.info('Skipping unsupported event');
                 return;
             }
