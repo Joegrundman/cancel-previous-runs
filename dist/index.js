@@ -2141,7 +2141,7 @@ function run() {
                 'workflow_dispatch',
                 'repository_dispatch'
             ].includes(eventName)) {
-                core.info('Skipping unsupported event');
+                core.info(`Skipping unsupported event: ${eventName}`);
                 return;
             }
             const pullRequest = 'pull_request' === eventName;

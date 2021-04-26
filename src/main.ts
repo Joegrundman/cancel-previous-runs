@@ -161,13 +161,14 @@ async function run(): Promise<void> {
         'repository_dispatch'
       ].includes(eventName)
     ) {
-      core.info('Skipping unsupported event')
+      core.info(`Skipping unsupported event: ${eventName}`)
       return
     }
 
     const pullRequest = 'pull_request' === eventName
 
     let branch = getRequiredEnv(pullRequest ? 'GITHUB_HEAD_REF' : 'GITHUB_REF')
+
     if (!pullRequest && !branch.startsWith(branchPrefix)) {
       if (branch.startsWith(tagPrefix)) {
         core.info(`Skipping tag build`)
@@ -176,6 +177,7 @@ async function run(): Promise<void> {
       const message = `${branch} was not an expected branch ref (refs/heads/).`
       throw new Error(message)
     }
+
     branch = branch.replace(branchPrefix, '')
 
     core.info(
