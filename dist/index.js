@@ -2124,6 +2124,8 @@ function run() {
             const selfRunId = getRequiredEnv('GITHUB_RUN_ID');
             const repository = getRequiredEnv('GITHUB_REPOSITORY');
             const eventName = getRequiredEnv('GITHUB_EVENT_NAME');
+            const job = core.getInput('job');
+            core.info(`job: ${job}`);
             const [owner, repo] = repository.split('/');
             const branchPrefix = 'refs/heads/';
             const tagPrefix = 'refs/tags/';

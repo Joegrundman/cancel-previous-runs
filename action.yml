@@ -8,6 +8,9 @@ inputs:
   workflow:
     description: The filename of the workflow to limit runs on (only applies to schedule events)
     required: false
+  job:
+    description: additional job label if needed to specifiy a specific job to cancel
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
