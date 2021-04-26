@@ -2135,8 +2135,7 @@ function run() {
                 yield cancelDuplicates(token, selfRunId, owner, repo, workflowId);
                 return;
             }
-            const acceptedEvents = core.getInput('events').split('\n').filter(x => x);
-            if (!['push', 'pull_request'].concat(acceptedEvents).includes(eventName)) {
+            if (!['push', 'pull_request', 'workflow_dispatch', 'repository_dispatch'].includes(eventName)) {
                 core.info('Skipping unsupported event');
                 return;
             }
