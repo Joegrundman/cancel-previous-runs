@@ -32,6 +32,8 @@ cancel-runs:
     steps:
       - uses: n1hility/cancel-previous-runs@v2
         with: 
+          events: |
+            workflow_dispatch
           token: ${{ secrets.GITHUB_TOKEN }}
           workflow: my-heavy-workflow.yml
 ```
