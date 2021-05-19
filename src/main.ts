@@ -155,10 +155,12 @@ async function run(): Promise<void> {
 
     if ('schedule' === eventName) {
       const workflowId = core.getInput('workflow')
-      core.info('scheduled run with workflowId: ' + workflowId)
+      core.info(`scheduled run with workflowId: ${workflowId}`)
 
       if (!(workflowId && workflowId.length > 0 && /.yml/.test(workflowId))) {
-        core.info('Workflow must be specified for schedule event type - skipping cancellation')
+        core.info(
+          'Workflow must be specified for schedule event type - skipping cancellation'
+        )
         return
       }
       await cancelDuplicates(token, selfRunId, owner, repo, workflowId)

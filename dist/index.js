@@ -2137,9 +2137,11 @@ function run() {
             const tagPrefix = 'refs/tags/';
             if ('schedule' === eventName) {
                 const workflowId = core.getInput('workflow');
-                // if (!(workflowId.length > 0)) {
-                //   throw new Error('Workflow must be specified for schedule event type')
-                // }
+                core.info(`scheduled run with workflowId: ${workflowId}`);
+                if (!(workflowId && workflowId.length > 0 && /.yml/.test(workflowId))) {
+                    core.info('Workflow must be specified for schedule event type - skipping cancellation');
+                    return;
+                }
                 yield cancelDuplicates(token, selfRunId, owner, repo, workflowId);
                 return;
             }
